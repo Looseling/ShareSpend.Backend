@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SplitWise.Application\ShareSpend.Application.csproj" />
+  </ItemGroup>
+
 </Project>

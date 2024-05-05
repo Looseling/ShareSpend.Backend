@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{00579C4D-DC02-4B38-99AA-98B498CB227E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplitWise.Api", "Src\SplitWise.Api\SplitWise.Api\SplitWise.Api.csproj", "{7DE393C7-3DC2-490A-A3F7-E8B41F6A9A27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplitWise.Api", "Src\SplitWise.Api\SplitWise.Api\SplitWise.Api.csproj", "{7DE393C7-3DC2-490A-A3F7-E8B41F6A9A27}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShareSpend.Application", "Src\SplitWise.Application\ShareSpend.Application.csproj", "{68DDE75D-FD20-470B-BD9B-374C88502821}"
 EndProject
@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShareSpend.Contracts", "Src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShareSpend.Infrastructure", "Src\SplitWise.Infrastructure\ShareSpend.Infrastructure.csproj", "{0F78B5E7-A2E4-4515-9B13-C0CE7406BF5E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShareSpend.Domain", "Src\SplitWise.Domain\ShareSpend.Domain.csproj", "{60852273-BFAB-4344-8848-473B8A508992}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShareSpend.Domain", "Src\SplitWise.Domain\ShareSpend.Domain.csproj", "{5A7FCEB0-42F2-4968-9235-FE8CB897B2A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +37,10 @@ Global
 		{0F78B5E7-A2E4-4515-9B13-C0CE7406BF5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F78B5E7-A2E4-4515-9B13-C0CE7406BF5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F78B5E7-A2E4-4515-9B13-C0CE7406BF5E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{60852273-BFAB-4344-8848-473B8A508992}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{60852273-BFAB-4344-8848-473B8A508992}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{60852273-BFAB-4344-8848-473B8A508992}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{60852273-BFAB-4344-8848-473B8A508992}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A7FCEB0-42F2-4968-9235-FE8CB897B2A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A7FCEB0-42F2-4968-9235-FE8CB897B2A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A7FCEB0-42F2-4968-9235-FE8CB897B2A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A7FCEB0-42F2-4968-9235-FE8CB897B2A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,7 +50,6 @@ Global
 		{68DDE75D-FD20-470B-BD9B-374C88502821} = {00579C4D-DC02-4B38-99AA-98B498CB227E}
 		{168C2956-3148-4BEB-B4B5-19A4C706A7BF} = {00579C4D-DC02-4B38-99AA-98B498CB227E}
 		{0F78B5E7-A2E4-4515-9B13-C0CE7406BF5E} = {00579C4D-DC02-4B38-99AA-98B498CB227E}
-		{60852273-BFAB-4344-8848-473B8A508992} = {00579C4D-DC02-4B38-99AA-98B498CB227E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2897C0A5-80E6-4279-888F-385489A266C0}

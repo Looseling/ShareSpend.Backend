@@ -12,7 +12,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Controllers\" />
+		<ProjectReference Include="..\..\SplitWise.Application\ShareSpend.Application.csproj" />
+		<ProjectReference Include="..\..\SplitWise.Contracts\ShareSpend.Contracts.csproj" />
+		<ProjectReference Include="..\..\SplitWise.Infrastructure\ShareSpend.Infrastructure.csproj" />
 	</ItemGroup>
 
 
