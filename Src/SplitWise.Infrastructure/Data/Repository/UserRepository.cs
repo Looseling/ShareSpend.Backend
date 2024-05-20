@@ -33,7 +33,7 @@ namespace ShareSpend.Infrastructure.Data.Repository
             }
         }
 
-        public async Task<User> GetUser(int id)
+        public async Task<User> GetUserByIdAsync(int id)
         {
             return await _context.Users.FindAsync(id);
         }

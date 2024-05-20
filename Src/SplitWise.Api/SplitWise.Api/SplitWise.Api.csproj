@@ -14,6 +14,7 @@
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
 	</ItemGroup>
 
@@ -21,6 +22,10 @@
 		<ProjectReference Include="..\..\SplitWise.Application\ShareSpend.Application.csproj" />
 		<ProjectReference Include="..\..\SplitWise.Contracts\ShareSpend.Contracts.csproj" />
 		<ProjectReference Include="..\..\SplitWise.Infrastructure\ShareSpend.Infrastructure.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Reqeusts\" />
 	</ItemGroup>
 
 

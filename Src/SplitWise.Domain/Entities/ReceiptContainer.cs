@@ -12,5 +12,6 @@ public class ReceiptContainer
 
     public List<Receipt> Receipts { get; set; }
 
-    public List<UserReceiptContainer> UserReceiptContainers { get; set; }
+    public List<UserReceiptContainer> UserReceiptContainers
+    { get; set; }
 }

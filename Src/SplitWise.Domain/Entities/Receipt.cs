@@ -18,6 +18,8 @@ public class Receipt
 
     public DateTime Date { get; set; }
 
+    public int ReceiptImageId { get; set; }
+
     //Foreign Keys
     [ForeignKey("ReceiptContainerId")]
     public int? ReceiptContainerId { get; set; }

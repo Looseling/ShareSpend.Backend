@@ -7,14 +7,10 @@ using System.Threading.Tasks;
 
 namespace ShareSpend.Application.IRepository
 {
-    public interface IUserRepository
+    public interface IReceiptImageStorage
     {
-        Task AddUser(User user);
+        Task SaveReceiptAsync(ReceiptStorageModel receiptStorageModel);
 
-        Task<User> GetUserByIdAsync(int id);
-
-        Task UpdateUser(User user);
-
-        Task DeleteUser(int id);
+        Task<ReceiptStorageModel> GetReceiptAsync(string receiptContainerId, string receiptId);
     }
 }
