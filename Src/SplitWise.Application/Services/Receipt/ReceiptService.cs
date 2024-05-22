@@ -19,16 +19,14 @@ namespace ShareSpend.Application.Services.Receipt
             _receiptImageStorage = receiptImageStorage;
         }
 
-        public async Task<ReceiptServiceModel> ProcessReceipt(int userId, byte[] image)
+        public async Task<ReceiptServiceModel> ProcessReceipt(string containerId, byte[] image)
         {
             var receiptUUID = Guid.NewGuid().ToString();
-            var receiptContainerUUID = Guid.NewGuid().ToString();
-            var userUUID = Guid.NewGuid().ToString();
 
             //save image in azure storage
-            var receiptStorageModel = new ReceiptStorageModel
+            var receiptStorageModel = new Storage
             {
-                ReceiptContainerId = receiptContainerUUID,
+                ReceiptContainerId = containerId,
                 ReceiptId = receiptUUID,
                 ReceiptImage = image,
             };
@@ -43,8 +41,7 @@ namespace ShareSpend.Application.Services.Receipt
             return new ReceiptServiceModel
             (
                 receiptUUID,
-                receiptContainerUUID,
-                userUUID,
+                containerId,
                 receiptImageData
             );
         }

@@ -24,10 +24,6 @@
 		<ProjectReference Include="..\..\SplitWise.Infrastructure\ShareSpend.Infrastructure.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Reqeusts\" />
-	</ItemGroup>
-
 
 
 

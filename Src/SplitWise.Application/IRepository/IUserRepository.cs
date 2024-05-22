@@ -9,12 +9,16 @@ namespace ShareSpend.Application.IRepository
 {
     public interface IUserRepository
     {
+        //Cruds
         Task AddUser(User user);
 
-        Task<User> GetUserByIdAsync(int id);
+        Task<User> GetUserByIdAsync(string publicId);
 
         Task UpdateUser(User user);
 
-        Task DeleteUser(int id);
+        Task DeleteUser(string publicId);
+
+        //Queries
+        Task<bool> IsUserExists(string publicId);
     }
 }

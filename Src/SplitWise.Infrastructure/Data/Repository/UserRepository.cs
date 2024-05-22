@@ -1,4 +1,5 @@
-﻿using ShareSpend.Application.IRepository;
+﻿using Microsoft.EntityFrameworkCore;
+using ShareSpend.Application.IRepository;
 using ShareSpend.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -23,9 +24,9 @@ namespace ShareSpend.Infrastructure.Data.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteUser(int id)
+        public async Task DeleteUser(string publicId)
         {
-            var user = _context.Users.Find(id);
+            var user = _context.Users.FirstOrDefaultAsync(u => u.PublicId == publicId);
             if (user != null)
             {
                 _context.Remove(user);
@@ -33,9 +34,14 @@ namespace ShareSpend.Infrastructure.Data.Repository
             }
         }
 
-        public async Task<User> GetUserByIdAsync(int id)
+        public async Task<User> GetUserByIdAsync(string publicId)
         {
-            return await _context.Users.FindAsync(id);
+            return await _context.Users.FirstOrDefaultAsync(u => u.PublicId == publicId);
+        }
+
+        public async Task<bool> IsUserExists(string publicId)
+        {
+            return await _context.Users.AnyAsync(u => u.PublicId == publicId);
         }
 
         public async Task UpdateUser(User user)

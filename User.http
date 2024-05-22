@@ -1,0 +1,10 @@
+### Test POST /api/user
+
+POST https://localhost:7176/api/user
+Content-Type: application/json
+
+{
+  "userPublicId" : "123456",
+  "Name": "John Doe",
+  "Email": "johndoe@example.com"
+}

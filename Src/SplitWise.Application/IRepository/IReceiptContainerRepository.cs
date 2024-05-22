@@ -7,14 +7,18 @@ using System.Threading.Tasks;
 
 namespace ShareSpend.Application.IRepository
 {
-    public interface IReceiptContainerRepository
+    public interface IContainerRepository
     {
-        Task AddReceiptContainer(ReceiptContainer receiptContainer);
+        //Cruds
+        Task AddContainer(Container receiptContainer);
 
-        Task<ReceiptContainer> GetReceiptContainer(int id);
+        Task<Container> GetContainer(string containerId);
 
-        Task UpdateReceiptContainer(ReceiptContainer receiptContainer);
+        Task UpdateContainer(Container receiptContainer);
 
-        Task DeleteReceiptContainer(int id);
+        Task DeleteContainer(string containerId);
+
+        //Queries
+        Task<bool> IsContainerExists(string containerId);
     }
 }

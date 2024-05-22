@@ -5,7 +5,7 @@ using Microsoft.Identity.Client;
 using ShareSpend.Application.IRepository;
 using ShareSpend.Infrastructure.Data.Repository;
 using ShareSpend.Infrastructure.llm;
-using ShareSpend.Infrastructure.Storage;
+using ShareSpend.Infrastructure.ReceiptsStorage;
 
 namespace SplitWise.AddInfrastructure;
 
@@ -16,8 +16,8 @@ public static class DependencyInjection
         container.AddScoped<IReceiptImageProcessor, ReceiptImageProcessor>();
 
         //Repository
-        container.AddScoped<IReceiptImageStorage, ReceiptImageStorage>();
-        container.AddScoped<IReceiptContainerRepository, ReceiptContainerRepository>();
+        container.AddScoped<IReceiptImageStorage, BlobStorageService>();
+        container.AddScoped<IContainerRepository, ContainerRepository>();
         container.AddScoped<IReceiptRepository, ReceiptRepository>();
         container.AddScoped<IUserRepository, UserRepository>();
         container.AddScoped<IReceiptItemRepository, ReceiptItemRepository>();

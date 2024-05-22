@@ -7,14 +7,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShareSpend.Infrastructure.Data;
 
-
 #nullable disable
 
 namespace ShareSpend.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240512154951_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240522161533_init migrate")]
+    partial class initmigrate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,6 +25,48 @@ namespace ShareSpend.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ContainerUser", b =>
+                {
+                    b.Property<int>("ContainersId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ContainersId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("ContainerUser");
+                });
+
+            modelBuilder.Entity("ShareSpend.Domain.Entities.Container", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AdminId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PublicId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdminId");
+
+                    b.ToTable("Containers");
+                });
+
             modelBuilder.Entity("ShareSpend.Domain.Entities.Receipt", b =>
                 {
                     b.Property<int>("Id")
@@ -35,17 +76,21 @@ namespace ShareSpend.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("MerchantName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ReceiptContainerId")
+                    b.Property<string>("PublicId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ReceiptContainerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReceiptImageId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Total")
@@ -63,27 +108,6 @@ namespace ShareSpend.Infrastructure.Migrations
                     b.ToTable("Receipts");
                 });
 
-            modelBuilder.Entity("ShareSpend.Domain.Entities.ReceiptContainer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ContainerName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ReceiptContainers");
-                });
-
             modelBuilder.Entity("ShareSpend.Domain.Entities.ReceiptItem", b =>
                 {
                     b.Property<int>("Id")
@@ -92,11 +116,10 @@ namespace ShareSpend.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal?>("Discount")
+                    b.Property<decimal>("Discount")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ItemName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
@@ -124,42 +147,52 @@ namespace ShareSpend.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PublicId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ShareSpend.Domain.Entities.UserReceiptContainer", b =>
+            modelBuilder.Entity("ContainerUser", b =>
                 {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.HasOne("ShareSpend.Domain.Entities.Container", null)
+                        .WithMany()
+                        .HasForeignKey("ContainersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("ReceiptContainerId")
-                        .HasColumnType("int");
+                    b.HasOne("ShareSpend.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+            modelBuilder.Entity("ShareSpend.Domain.Entities.Container", b =>
+                {
+                    b.HasOne("ShareSpend.Domain.Entities.User", "Admin")
+                        .WithMany()
+                        .HasForeignKey("AdminId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.HasKey("UserId", "ReceiptContainerId");
-
-                    b.HasIndex("ReceiptContainerId");
-
-                    b.ToTable("UserReceiptContainers");
+                    b.Navigation("Admin");
                 });
 
             modelBuilder.Entity("ShareSpend.Domain.Entities.Receipt", b =>
                 {
-                    b.HasOne("ShareSpend.Domain.Entities.ReceiptContainer", "ReceiptContainer")
+                    b.HasOne("ShareSpend.Domain.Entities.Container", "ReceiptContainer")
                         .WithMany("Receipts")
-                        .HasForeignKey("ReceiptContainerId");
+                        .HasForeignKey("ReceiptContainerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ShareSpend.Domain.Entities.User", "User")
                         .WithMany("Receipts")
@@ -183,23 +216,9 @@ namespace ShareSpend.Infrastructure.Migrations
                     b.Navigation("Receipt");
                 });
 
-            modelBuilder.Entity("ShareSpend.Domain.Entities.UserReceiptContainer", b =>
+            modelBuilder.Entity("ShareSpend.Domain.Entities.Container", b =>
                 {
-                    b.HasOne("ShareSpend.Domain.Entities.ReceiptContainer", "ReceiptContainer")
-                        .WithMany("UserReceiptContainers")
-                        .HasForeignKey("ReceiptContainerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ShareSpend.Domain.Entities.User", "User")
-                        .WithMany("UserReceiptContainers")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ReceiptContainer");
-
-                    b.Navigation("User");
+                    b.Navigation("Receipts");
                 });
 
             modelBuilder.Entity("ShareSpend.Domain.Entities.Receipt", b =>
@@ -207,18 +226,9 @@ namespace ShareSpend.Infrastructure.Migrations
                     b.Navigation("Items");
                 });
 
-            modelBuilder.Entity("ShareSpend.Domain.Entities.ReceiptContainer", b =>
-                {
-                    b.Navigation("Receipts");
-
-                    b.Navigation("UserReceiptContainers");
-                });
-
             modelBuilder.Entity("ShareSpend.Domain.Entities.User", b =>
                 {
                     b.Navigation("Receipts");
-
-                    b.Navigation("UserReceiptContainers");
                 });
 #pragma warning restore 612, 618
         }

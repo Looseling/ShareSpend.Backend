@@ -1,0 +1,18 @@
+### Get Receipt Containers
+GET /api/ReceiptContainerController/GetReceiptContainers
+
+### Post Receipt Container
+POST https://localhost:7176/api/Container
+Content-Type: application/json
+
+{
+  "userId": "123456",
+  "Name": "Container1",
+  "containerId": "container123"
+}
+
+### Get Receipt Container by Id
+GET /api/ReceiptContainerController/GetReceiptContainerById?id=1
+
+### Get Receipt Containers by User Id
+GET /api/ReceiptContainerController/GetReceiptContainersByUserId?userId=user123

@@ -5,12 +5,11 @@ namespace ShareSpend.Application.Services.Receipt
 {
     public interface IReceiptService
     {
-        Task<ReceiptServiceModel> ProcessReceipt(int userId, byte[] image);
+        Task<ReceiptServiceModel> ProcessReceipt(string containerId, byte[] image);
     }
 
     public record ReceiptServiceModel(
             string receiptUUID,
             string receiptContainerUUID,
-            string userUUID,
             ProcessedReecipt receiptData);
 }

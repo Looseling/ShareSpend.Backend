@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ShareSpend.Application.IRepository;
 using ShareSpend.Application.Services.Receipt;
+using ShareSpend.Domain.Entities.DTOs.Input;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
@@ -12,43 +13,42 @@ namespace SplitWise.Api.Controllers
     {
         private readonly IReceiptService _receiptService;
         private readonly IUserRepository _userRepository;
+        private readonly IContainerRepository _containerRepository;
 
-        public ReceiptController(IReceiptService receiptService, IUserRepository userRepository)
+        public ReceiptController(IReceiptService receiptService, IUserRepository userRepository, IContainerRepository containerRepository)
         {
             _receiptService = receiptService;
             _userRepository = userRepository;
+            _containerRepository = containerRepository;
         }
 
         [HttpPost]
         public async Task<IActionResult> PostReceiptImage(
-            [FromBody][Required] ReceiptParamsCon rpc)
+            [FromBody][Required] ReceiptDto receiptdto)
         {
-            var user = await _userRepository.GetUserByIdAsync(rpc.userId);
+            var userExists = await _userRepository.IsUserExists(receiptdto.UserId);
+            var containerExists = await _containerRepository.IsContainerExists(receiptdto.ContainerId);
 
-            if (user != null)
+            if (!userExists)
             {
                 return BadRequest("User not found");
             }
 
-            if (rpc.image == null)
+            if (!containerExists)
+            {
+                return BadRequest("Container not found");
+            }
+
+            if (receiptdto.Image == null)
             {
                 return BadRequest("Image not found");
             }
 
-            var scannedReceipt = _receiptService.ProcessReceipt(rpc.userId, rpc.image);
+            var scannedReceipt = _receiptService.ProcessReceipt(receiptdto.UserId, receiptdto.Image);
 
             return scannedReceipt != null
                 ? Ok(scannedReceipt)
                 : BadRequest("Error processing receipt");
         }
-    }
-
-    public class ReceiptParamsCon
-    {
-        [Required]
-        public int userId { get; set; }
-
-        [Required]
-        public byte[] image { get; set; }
     }
 }
